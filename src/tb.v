@@ -10,8 +10,11 @@ module tb (
     // testbench is controlled by test.py
     input clk,
     input rst,
-    output [6:0] segments
-   );
+    input wrEn,
+    input [3:0] data_in,
+    output rd_idx_zero,
+    output [3:0] data_out
+);
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
     initial begin
@@ -21,12 +24,13 @@ module tb (
     end
 
     // wire up the inputs and outputs
-    wire [7:0] inputs = {6'b0, rst, clk};
+    wire [7:0] inputs = {data_in, 1'b0, wrEn, rst, clk};
     wire [7:0] outputs;
-    assign segments = outputs[6:0];
+    assign data_out = outputs[7:4];
+    assign rd_idx_zero = outputs[0];
 
     // instantiate the DUT
-    seven_segment_seconds #(.MAX_COUNT(100)) seven_segment_seconds(
+    tiny_fft tiny_fft_inst(
         .io_in  (inputs),
         .io_out (outputs)
         );

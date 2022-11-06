@@ -3,9 +3,8 @@
 project:
   wokwi_id:    0        # If using wokwi, set this to your project's ID
   source_files:        # If using an HDL, set wokwi_id as 0 and uncomment and list your source files here. Source files must be in ./src
-    - counter.v
-    - decoder.v
-  top_module:  "seven_segment_seconds"      # put the name of your top module here, make it unique by prepending your github username
+    - tiny_fft.v
+  top_module:  "tiny_fft"      # put the name of your top module here, make it unique by prepending your github username
 
 # As everyone will have access to all designs, try to make it easy for someone new to your design to know what
 # it does and how to operate it.
@@ -14,10 +13,10 @@ project:
 #
 # This info will be automatically collected and used to make a datasheet for the chip.
 documentation: 
-  author:       "Matt Venn"      # Your name
-  discord:      "mattvenn"      # Your discord handle
-  title:        "7 segment seconds"      # Project title
-  description:  "count up to 10, one second at a time"      # Short description of what your project does
+  author:       "Rice Shelley"      # Your name
+  discord:      "ganesh"      # Your discord handle
+  title:        "small FFT"      # Project title
+  description:  "Computes a small fft"      # Short description of what your project does
   how_it_works: "uses a register and some combinational logic"      # Longer description of how the project works
   how_to_test:  "after reset, the counter should increase by one every second"      # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   external_hw:  ""      # Describe any external hardware needed
@@ -28,19 +27,19 @@ documentation:
   inputs:               # a description of what the inputs do
     - clock
     - reset
+    - wrEn
     - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - data_in_0
+    - data_in_1
+    - data_in_2
+    - data_in_3
   outputs:
-    - segment a         # a description of what the outputs do
-    - segment b
-    - segment c
-    - segment d
-    - segment e
-    - segment f
-    - segment g
+    - rd_idx_zero         # a description of what the outputs do
     - none
+    - none
+    - none
+    - data_out_0
+    - data_out_1
+    - data_out_2
+    - data_out_3
 

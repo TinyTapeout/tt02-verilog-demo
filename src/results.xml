@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1667770953" />
+    <testcase name="test_7seg" classname="test" file="/home/rice/Documents/tiny-fft/src/test.py" lineno="6" time="0.003057241439819336" sim_time_ns="340000.001" ratio_time="111211367.40187974" />
+  </testsuite>
+</testsuites>
