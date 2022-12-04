@@ -58,6 +58,17 @@ jobs:
     - name: show files
       run: find runs/wokwi/
 
+    # extract gate-level verilog
+    - name: extract gate-level verilog
+      run: |
+        cp `find runs/wokwi/results/final/verilog/gl/*.v` runs/gatelevel.v
+
+    # upload gate-level verilog
+    - uses: actions/upload-artifact@v3
+      with:
+        name: gatelevel.v
+        path: runs/gatelevel.v
+
     # print some routing stats
     - name: add summary
       run: ./configure.py --get-stats >> $GITHUB_STEP_SUMMARY
@@ -79,6 +90,28 @@ jobs:
       with:
         path: runs
         key: ${{ runner.os }}-runs-${{ github.run_id }}
+
+  gatelevel:
+    needs: gds
+    runs-on: ubuntu-latest
+    container:
+      image: davidsiaw/ocs
+      env:
+        GATES: yes
+        PDK_ROOT: /opt/pdk
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v3
+    - uses: actions/download-artifact@v3
+      with:
+        name: gatelevel.v
+        path: src/gatelevel-src
+    - name: run gate level test
+      run: |
+        cd src
+        ls
+        cp gatelevel-src/gatelevel.v gatelevel.v
+        make
 
   png:
     needs: gds
